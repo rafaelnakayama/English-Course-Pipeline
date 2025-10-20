@@ -13,7 +13,7 @@ def main_menu():
     print("2) Visualizar alunos")
     print("3) Sair")
 
-    print(hoje)
+    print(f"\n" + hoje.strftime("%x"))
 
     while (Check == False):
         try:
