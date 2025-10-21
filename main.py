@@ -1,5 +1,6 @@
 import students_functions as sf
 import csv
+import os
 import datetime
 
 def main_menu():
@@ -38,8 +39,11 @@ def main_menu():
 
                 nivel_do_aluno = str(input("Informe o nível do aluno: "))
 
+                # Caminho para evitar erros em outros diretorios
+                caminho_csv = os.path.join(os.path.dirname(__file__), "data", "students.csv")
+
                 # Registra no .csv as informacoes, coloquei no modo append para acrescentar e nunca sobrescrever
-                with open("data/students.csv", "a", newline='') as arquivocsv:
+                with open(caminho_csv, "a", newline='') as arquivocsv:
 
                     chaves_csv = ["Nome", "Status", "Aulas", "Dia do Pagamento", "Nivel"]
                     escritor = csv.DictWriter(arquivocsv, fieldnames=chaves_csv)
@@ -53,7 +57,7 @@ def main_menu():
 
             elif option == 2:
                 # Abre e faz a leitura do .csv
-                with open("data/students.csv", newline='') as arquivocsv:
+                with open(caminho_csv, newline='') as arquivocsv:
                     leitor_csv = csv.reader(arquivocsv, delimiter=',', quotechar='|')
                     for linha in leitor_csv:
                         print(', '.join(linha))
