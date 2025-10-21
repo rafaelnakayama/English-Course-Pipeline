@@ -38,19 +38,21 @@ def main_menu():
 
                 nivel_do_aluno = str(input("Informe o nível do aluno: "))
 
-                # novo_aluno = sf.cadastrar_aluno(nome_do_aluno, status_do_aluno, aulas_assistidas, data_do_pagamento, nivel_do_aluno)
-
+                # Registra no .csv as informacoes, coloquei no modo append para acrescentar e nunca sobrescrever
                 with open("data/students.csv", "a", newline='') as arquivocsv:
+
                     chaves_csv = ["Nome", "Status", "Aulas", "Dia do Pagamento", "Nivel"]
                     escritor = csv.DictWriter(arquivocsv, fieldnames=chaves_csv)
 
                     escritor.writeheader()
-                    escritor.writerow({'Nome': f'{nome_do_aluno}', 'Status': f'{status_do_aluno}', 'Aulas': f'{aulas_assistidas}', 'Dia do Pagamento': f'{data_do_pagamento}', 'Nivel': f'{nivel_do_aluno}'})
-
-                # meus_alunos.append(novo_aluno)
-
+                    escritor.writerow({'Nome': f'{nome_do_aluno}', 
+                                       'Status': f'{status_do_aluno}', 
+                                       'Aulas': f'{aulas_assistidas}', 
+                                       'Dia do Pagamento': f'{data_do_pagamento}', 
+                                       'Nivel': f'{nivel_do_aluno}'})
 
             elif option == 2:
+                # Abre e faz a leitura do .csv
                 with open("data/students.csv", newline='') as arquivocsv:
                     leitor_csv = csv.reader(arquivocsv, delimiter=',', quotechar='|')
                     for linha in leitor_csv:
