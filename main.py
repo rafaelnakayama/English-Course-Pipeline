@@ -40,7 +40,7 @@ def main_menu():
 
                 # novo_aluno = sf.cadastrar_aluno(nome_do_aluno, status_do_aluno, aulas_assistidas, data_do_pagamento, nivel_do_aluno)
 
-                with open("students.csv", "a", newline='') as arquivocsv:
+                with open("data/students.csv", "a", newline='') as arquivocsv:
                     chaves_csv = ["Nome", "Status", "Aulas", "Dia do Pagamento", "Nivel"]
                     escritor = csv.DictWriter(arquivocsv, fieldnames=chaves_csv)
 
@@ -51,8 +51,8 @@ def main_menu():
 
 
             elif option == 2:
-                with open("students.csv", newline='') as arquivocsv:
-                    leitor_csv = csv.reader(arquivocsv, delimiter=' ', quotechar='|')
+                with open("data/students.csv", newline='') as arquivocsv:
+                    leitor_csv = csv.reader(arquivocsv, delimiter=',', quotechar='|')
                     for linha in leitor_csv:
                         print(', '.join(linha))
 
