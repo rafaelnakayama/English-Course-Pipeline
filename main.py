@@ -4,8 +4,6 @@ import datetime
 def main_menu():
     Check = False
 
-    # meus_alunos = []
-
     hoje = datetime.datetime.now()
 
     print("\n__ MENU PRINCIPAL __\n")
