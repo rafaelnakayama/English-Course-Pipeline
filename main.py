@@ -42,27 +42,11 @@ def main_menu():
 
                 nivel_do_aluno = str(input("Informe o nível do aluno: "))
 
-                # Variavel Booleana que retorna True o csv ja foi criado e False se ainda nao
-                arquivo_existe = os.path.exists(caminho_csv)
-                
-                if arquivo_existe:
-                    vazio = os.path.getsize(caminho_csv)  # os.path.getsize ja pega o numero em bytes direto
-
-                # Registra no .csv as informacoes, coloquei no modo append para acrescentar e nunca sobrescrever
-                with open(caminho_csv, "a", newline='') as arquivocsv:
-
-                    chaves_csv = ["Nome","Status","Aulas","Dia do Pagamento","Nivel"]
-                    escritor = csv.DictWriter(arquivocsv, fieldnames=chaves_csv)
-
-                    # Se o caminho nao existe ou existe mas esta vazio, escrevba o cabecalho
-                    if arquivo_existe == False or vazio == 0:
-                        escritor.writeheader()
-  
-                    escritor.writerow({'Nome': f'{nome_do_aluno}', 
-                                       'Status': f'{status_do_aluno}', 
-                                       'Aulas': f'{aulas_assistidas}', 
-                                       'Dia do Pagamento': f'{data_do_pagamento}', 
-                                       'Nivel': f'{nivel_do_aluno}'})
+                novo_Aluno = sf.cadastrar_aluno(nome_do_aluno, 
+                                                status_do_aluno, 
+                                                aulas_assistidas,
+                                                data_do_pagamento,
+                                                nivel_do_aluno,)
 
             elif option == 2:
                 # Abre e faz a leitura do .csv
