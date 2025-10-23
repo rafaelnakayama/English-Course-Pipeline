@@ -57,6 +57,7 @@ def editar_aluno(nome_chave, key, new_value):
     # dataframe
     df = pd.read_csv(caminho_csv)
 
-    df.loc[df['Nome'] == nome_chave]
+    # df.loc[df['Nome'] == nome_chave]
 
-    df.loc[df['Nome'] == nome_chave, f'{key}'] = new_value
+    df.loc[df['Nome'] == nome_chave, key] = new_value
+    df.to_csv("data/students.csv", index=False)
