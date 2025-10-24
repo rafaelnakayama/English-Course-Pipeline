@@ -1,19 +1,10 @@
 import students_functions as sf
-import datetime
+import ui_functions as ui
 
 def main_menu():
     Check = False
 
-    hoje = datetime.datetime.now()
-
-    print("\n__ MENU PRINCIPAL __\n")
-    print("1) Cadastrar alunos")
-    print("2) Visualizar alunos")
-    print("3) Editar aluno")
-    print("4) Remover aluno")
-    print("5) Sair")
-
-    print(f"\n" + hoje.strftime("%x"))
+    ui.menu_interface()
 
     while (Check == False):
         try:
@@ -21,9 +12,11 @@ def main_menu():
         except ValueError:
             print("Este Caractere provavelmente não é inteiro.")
             Check = False
+            continue
         except:
             print(f"Outra coisa deu errada.")
             Check = False
+            continue
 
 
         if option == 1:

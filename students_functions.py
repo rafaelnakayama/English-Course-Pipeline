@@ -1,5 +1,5 @@
 """
-Destinado as funcoes dos alunos
+This file contains the main features of the program, such as the options available at the menu.
 """
 
 import csv
