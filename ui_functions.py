@@ -3,6 +3,7 @@ This file contains the User Interface functions
 """
 
 import datetime
+import students_functions as sf
 
 # Pedi para o chat gpt gerar cores para serem inseridos nos prints
 CORES = {
@@ -42,7 +43,7 @@ def menu_interface():
 
     hoje = datetime.datetime.now()
 
-    print(f"\n{CORES['ciano_b']}MENU PRINCIPAL{CORES['reset']}\n")
+    print(f"\n{CORES['azul_b']}MENU PRINCIPAL{CORES['reset']}\n")
     print(f"{CORES['amarelo']}1) Cadastrar alunos{CORES['reset']}")
     print(f"{CORES['amarelo']}2) Visualizar alunos{CORES['reset']}")
     print(f"{CORES['amarelo']}3) Editar Informações{CORES['reset']}")
@@ -54,9 +55,41 @@ def menu_interface():
 
 def menu_option_3():
 
-    print(f"\n{CORES['azul_b']}Selecione uma opção:{CORES['reset']}\n")
-    print(f"{CORES['verde']}1) Alterar Nome{CORES['reset']}")
-    print(f"{CORES['verde']}2) Alterar Status{CORES['reset']}")
-    print(f"{CORES['verde']}3) Alterar Quantidade de Aulas{CORES['reset']}")
-    print(f"{CORES['verde']}4) Alterar Dia do Pagamento{CORES['reset']}")
-    print(f"{CORES['verde']}5) Alterar Nível{CORES['reset']}")
+    print(f"\n{CORES['ciano_b']}Selecione uma opção:{CORES['reset']}\n")
+    print(f"{CORES['amarelo']}1) Alterar Nome{CORES['reset']}")
+    print(f"{CORES['amarelo']}2) Alterar Status{CORES['reset']}")
+    print(f"{CORES['amarelo']}3) Alterar Quantidade de Aulas{CORES['reset']}")
+    print(f"{CORES['amarelo']}4) Alterar Dia do Pagamento{CORES['reset']}")
+    print(f"{CORES['amarelo']}5) Alterar Nível{CORES['reset']}")
+
+def inputs_cadastro():
+
+    # Nome
+    nome_aluno = str(input(f"{CORES['verde']}Informe o nome do aluno(a): {CORES['reset']}"))
+    sf.aluno_existe(nome_aluno)
+
+    while(sf.aluno_existe == True):
+        print(f"{CORES['vermelho']}Este aluno já está cadastrado.{CORES['reset']}")
+        nome_aluno = str(input(f"{CORES['verde']}Informe o nome do aluno(a): {CORES['reset']}"))
+
+    # Status
+    status_aluno = str(input(f"{CORES['verde']}Status do Aluno (A - Ativo, D - Desligado): {CORES['reset']}")).upper()
+    if status_aluno == "A":
+        status_aluno = "Ativo"
+    elif status_aluno == "D":
+        status_aluno = "Deligado"
+    else:
+        status_aluno = "UNKNOWN"
+
+    # Aulas
+    aulas_aluno = int(input(f"{CORES['verde']}Aulas assistidas: {CORES['reset']}"))
+
+    while(aulas_aluno < 0):
+        print(f"{CORES['vermelho']}Este valor não pode ser Negativo.{CORES['reset']}")
+        aulas_aluno = int(input(f"{CORES['verde']}Aulas assistidas: {CORES['reset']}"))
+        
+    # Pagamento
+    pagamento_aluno = str(input("Informe o dia do pagamento: "))
+
+    # Nivel
+    nivel_aluno = str(input("Informe o nível do aluno: "))

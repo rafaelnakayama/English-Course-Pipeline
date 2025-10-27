@@ -79,20 +79,23 @@ def main_menu():
             sf.editar_aluno(alterar_por_nome, chave, valor_atualizado)
 
         elif option == 4:
+            # Clean
             nome_aluno = str(input("Informe o nome do aluno: "))
             sf.aluno_existe(nome_aluno)
 
             while (sf.aluno_existe(nome_aluno) == False):
-                print("\033[1;31mEste aluno não está no banco de dados.\033[0m")
+                print("\033[1;31mEste aluno não está no banco de dados.\033[1;31m")
                 nome_aluno = str(input("Informe o nome do aluno: "))
 
             sf.remover_aluno(nome_aluno)
 
         elif option == 5:
-            print("\nSaindo do programa...")
+            # Clean
+            print("\n\033[1;35mSaindo do programa...\033[1;35m")
             break
 
         else:
-            print(f"A Opção '{option}' não exite.")
+            # Clean
+            print(f"\033[1;31mA Opção '{option}' não exite.\033[1;35m")
     
 main_menu()
