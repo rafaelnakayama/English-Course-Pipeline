@@ -4,6 +4,8 @@ import ui_functions as ui
 def main_menu():
     Check = False
 
+    sf.verificar_csv()
+
     ui.menu_interface()
 
     while (Check == False):
@@ -20,9 +22,10 @@ def main_menu():
 
         if option == 1:
             # Captura os valores que existem dentro de ui.inputs_cadastro()
-            nome_aluno, status_aluno, aulas_aluno, pagamento_aluno, nivel_aluno = ui.inputs_cadastro()
+            id_aluno, nome_aluno, status_aluno, aulas_aluno, pagamento_aluno, nivel_aluno = ui.inputs_cadastro()
 
-            novo_Aluno = sf.cadastrar_aluno(nome_aluno, 
+            novo_Aluno = sf.cadastrar_aluno(id_aluno,
+                                            nome_aluno, 
                                             status_aluno, 
                                             aulas_aluno,
                                             pagamento_aluno,

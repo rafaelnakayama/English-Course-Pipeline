@@ -1,6 +1,3 @@
-Nome,Status,Aulas,Dia do Pagamento,Nivel,Unnamed: 5
-khabib,Deligado,22,7 de Setembro,Intermediario,
-Vagner Mata Gato,Ativo,12,2 de Maio,basico,
-johnson,Ativo,23,11 de Dezembro,Hardtares,
-ishowspeed,Ativo,66,13 de Julho,Fluente,
-topuria,Ativo,192,14 de Junho,Basico,
+ID,Nome,Status,Aulas,Dia do Pagamento,Nivel
+4f5c426b-0bd7-45ff-8a90-e0ebb2e25c02,josh peck,Ativo,100,11 de Setembro,Intermediario
+5de04453-60c0-4bb6-b4a7-41dcec8aba47,fernando,Deligado,77,15 de Junho,Fluente

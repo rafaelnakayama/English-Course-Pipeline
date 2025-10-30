@@ -4,6 +4,7 @@ This file contains the User Interface functions
 
 import datetime
 import students_functions as sf
+import uuid
 
 # Pedi para o chat gpt gerar cores para serem inseridos nos prints
 CORES = {
@@ -64,6 +65,9 @@ def menu_option_3():
 
 def inputs_cadastro():
 
+    # Gera o ID do aluno uuid.uuid4()
+    id_aluno = uuid.uuid4()
+
     # Nome
     nome_aluno = str(input(f"{CORES['verde']}Informe o nome do aluno(a): {CORES['reset']}"))
     sf.aluno_existe(nome_aluno)
@@ -94,7 +98,7 @@ def inputs_cadastro():
     # Nivel
     nivel_aluno = str(input(f"{CORES['verde']}Nível do aluno: {CORES['reset']}"))
 
-    return nome_aluno, status_aluno, aulas_aluno, pagamento_aluno, nivel_aluno
+    return id_aluno, nome_aluno, status_aluno, aulas_aluno, pagamento_aluno, nivel_aluno
 
 def inputs_editar():
     Check = False

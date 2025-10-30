@@ -10,7 +10,7 @@ from tabulate import tabulate
 # Caminho para evitar erros em outros diretorios
 caminho_csv = os.path.join(os.path.dirname(__file__), "data", "students.csv")
 
-def cadastrar_aluno(nome_param, status_param, aulas_param, pagamento_param, nivel_param):
+def cadastrar_aluno(id_param,nome_param, status_param, aulas_param, pagamento_param, nivel_param):
     # Variavel Booleana que retorna True o csv ja foi criado e False se ainda nao
     arquivo_existe = os.path.exists(caminho_csv)
                 
@@ -20,14 +20,15 @@ def cadastrar_aluno(nome_param, status_param, aulas_param, pagamento_param, nive
     # Registra no .csv as informacoes, coloquei no modo append para acrescentar e nunca sobrescrever
     with open(caminho_csv, "a", newline='') as arquivocsv:
 
-        chaves_csv = ["Nome","Status","Aulas","Dia do Pagamento","Nivel"]
+        chaves_csv = ["ID","Nome","Status","Aulas","Dia do Pagamento","Nivel"]
         escritor = csv.DictWriter(arquivocsv, fieldnames=chaves_csv)
 
         # Se o caminho nao existe ou existe mas esta vazio, escrevba o cabecalho
         if arquivo_existe == False or vazio == 0:
             escritor.writeheader()
   
-        escritor.writerow({'Nome': f'{nome_param}', 
+        escritor.writerow({'ID': f'{id_param}',
+                           'Nome': f'{nome_param}', 
                            'Status': f'{status_param}', 
                            'Aulas': f'{aulas_param}', 
                            'Dia do Pagamento': f'{pagamento_param}', 
@@ -39,12 +40,12 @@ def visualizar_alunos():
 
         leitor_csv = csv.DictReader(arquivocsv)
 
-        headers = ['Nome', 'Status', 'Aulas Assistidas', 'Dia do Pagamento', 'Nível']
+        headers = ['ID','Nome', 'Status', 'Aulas Assistidas', 'Dia do Pagamento', 'Nível']
         table = [] # Lista Vazia
 
         # Insere cada campo da linha especifica dentro da tabela
         for linha in leitor_csv:
-            table.append([linha['Nome'], linha['Status'], linha['Aulas'], linha['Dia do Pagamento'], linha['Nivel']]) 
+            table.append([linha['ID'], linha['Nome'], linha['Status'], linha['Aulas'], linha['Dia do Pagamento'], linha['Nivel']]) 
 
         print(tabulate(table, headers=headers, tablefmt="fancy_grid")) # Usa o cabecalho headers que definimos anteriormente
         # Dispensa o uso de loop, printa cada linha uma vez assim como o cabecalho
@@ -59,7 +60,6 @@ def remover_aluno(aluno):
     print(f"\nSUCESSO! o aluno {aluno} foi removido com sucesso.")
 
 def aluno_existe(nome_teste):
-
     # dataframe
     df = pd.read_csv(caminho_csv)
 
@@ -81,3 +81,21 @@ def editar_aluno(nome_chave, key, new_value):
 
     df.loc[df['Nome'] == nome_chave, key] = new_value
     df.to_csv("data/students.csv", index=False)
+
+def verificar_csv():
+
+    header = ['ID', 'Nome', 'Status', 'Aulas', 'Dia do Pagamento', 'Nivel']
+
+    # Verifica se o arquivo existe
+    if not os.path.exists(caminho_csv):
+        with open(caminho_csv, mode='w', newline='', encoding='utf-8') as arquivo:
+            escritor = csv.writer(arquivo)
+            escritor.writerow(header)
+        print("O arquivo foi criado do zero com cabecalho padrao.")
+
+    # Se nao existe mas estiver vazio, adicione o cabecalho padrao
+    elif os.path.getsize(caminho_csv) == 0:
+        with open(caminho_csv, mode='w', newline='', encoding='utf-8') as arquivo:
+            escritor = csv.writer(arquivo)
+            escritor.writerow(header)
+        print("O arquivo estava vazio, o cabecalho foi criado.")
