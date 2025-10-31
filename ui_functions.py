@@ -66,7 +66,7 @@ def menu_option_3():
 def inputs_cadastro():
 
     # Gera o ID do aluno uuid.uuid4()
-    id_aluno = uuid.uuid4()
+    id_aluno = str(uuid.uuid4())
 
     # Nome
     nome_aluno = str(input(f"{CORES['verde']}Informe o nome do aluno(a): {CORES['reset']}")).lower()
