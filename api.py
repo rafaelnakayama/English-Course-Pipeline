@@ -17,7 +17,7 @@ caminho_token = os.path.join(os.path.dirname(__file__), "data", "token.json")
 
 camninho_cred = os.path.join(os.path.dirname(__file__), "data", "credenciais.json")
 
-# SIU
+PASTA_CURSO_ID = "10n1IG9bxWjaR_V5bpw6p_1Y32SrhEdCY"
 
 def autenticar():
     credenciais = None
@@ -41,4 +41,23 @@ def autenticar():
     return credenciais
 
 credenciais = autenticar()
+
 service = build('drive', 'v3', credentials=credenciais)
+
+def listar_arquivos(service):
+
+    results = service.files().list(
+        pageSize=10, fields="files(id, name)", q= f"'{PASTA_CURSO_ID}' in parents and trashed = false"
+    ).execute()
+
+    items = results.get("files", [])
+
+    if not items:
+        print("Nenhum arquivo encontrado.")
+    else:
+        print("Arquivos encontrados:")
+        for item in items:
+            print(f"{item['name']} ({item['id']})")
+
+
+listar_arquivos(service)
