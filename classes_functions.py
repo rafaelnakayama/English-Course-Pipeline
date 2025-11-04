@@ -28,14 +28,6 @@ def verificar_csvs_materiais():
                 escritor.writerow(["ID", "Nome", "Nível"])
             print(f"[+] Criado arquivo: {caminho}")
 
-# Função para cadastrar um material SVSVSVSVSV
-def cadastrar_material(tipo, id_material, nome, nivel):
-    caminho = ARQUIVOS[tipo]
-    with open(caminho, "a", newline="", encoding="utf-8") as f:
-        escritor = csv.writer(f)
-        escritor.writerow([id_material, nome, nivel])
-    print(f"[+] {tipo.capitalize()} adicionada com sucesso!")
-
 def inputs_cadastro_material():
 
     # Cria id com uuid e da slice na string, deixando o mesmo com apenas 8 caracteres

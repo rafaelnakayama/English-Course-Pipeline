@@ -49,21 +49,56 @@ service = build('drive', 'v3', credentials=credenciais)
 def criar_csvs(service):
 
     results = service.files().list(
-        pageSize=10, fields="files(name)", q= f"'{PASTA_CURSO_ID}' in parents and trashed = false"
+        pageSize=10, fields="files(id,name)", q= f"'{PASTA_CURSO_ID}' in parents and trashed = false"
     ).execute()
 
     items = results.get("files", [])
 
     df = pd.DataFrame(items)
-
     df.to_csv("data/test.csv", index=False)
 
-    """if not items:
-        print("Nenhum arquivo encontrado.")
+    if not items:
+        print("Nenhuma aula encontrada.")
     else:
-        print("Arquivos encontrados:")
         for item in items:
-            print(f"{item['name']}")"""
 
+            nome_loop = item["name"]
+            id_loop = item["id"]
+
+            if nome_loop.endswith("(Aulas)"):
+                results_aulas = service.files().list(
+                    pageSize=200, fields="files(id,name)", 
+                    q= f"'{id_loop}' in parents and trashed = false"
+                ).execute()
+
+                items_aulas = results_aulas.get("files", [])
+
+            elif nome_loop.endswith("(Textos)"):
+                results_textos = service.files().list(
+                    pageSize=200, fields="files(id,name)", 
+                    q= f"'{id_loop}' in parents and trashed = false"
+                ).execute()
+
+                items_textos = results_textos.get("files", [])
+
+            elif nome_loop.endswith("(Atividades)"):
+                results_atividades = service.files().list(
+                    pageSize=200, fields="files(id,name)", 
+                    q= f"'{id_loop}' in parents and trashed = false"
+                ).execute()
+
+                items_atividades = results_atividades.get("files", [])
+
+            else:
+                pass
+
+    aulas_df = pd.DataFrame(items_aulas)
+    aulas_df.to_csv("data/aulas.csv", index=False)
+
+    textos_df = pd.DataFrame(items_textos)
+    textos_df.to_csv("data/textos.csv", index=False)
+
+    atividades_df = pd.DataFrame(items_atividades)
+    atividades_df.to_csv("data/exercicios.csv", index=False)
 
 criar_csvs(service)
