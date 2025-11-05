@@ -1,5 +1,6 @@
 import students_functions as sf
 import ui_functions as ui
+import classes_functions as cf
 
 def main_menu():
     Check = False
@@ -90,22 +91,9 @@ def main_menu():
 
                 if opcao == 1:
                     print("\033[38;5;208m(1) Aulas, (2) Textos ou (3) Exercicios\033[0m")
-                    Validar_2 = False
-                    while (Validar_2 == False):
-                        try:
-                            tipo_material = int(input("\n\033[38;5;208mSelecione o Material: \033[0m"))
-                            if tipo_material not in [1, 2, 3]:
-                                raise ValueError("\033[1;31mFora do intervalo.\033[0m")
-                            Validar_2 = True
-                        except ValueError as e:
-                            if str(e) == "fora_do_intervalo":
-                                print("\033[1;31mO valor deve estar entre 1 e 3.\033[0m")
-                            else:
-                                print("\033[1;31mO caractére inserido não é inteiro.\033[0m")
-                            continue
-                        except Exception:
-                            print("\033[1;31mOutra coisa deu errada.\033[0m")
-                            continue
+                    tipo = cf.validar_tipo()
+
+                    cf.visualizar_material(tipo)
 
                 elif opcao == 3:
                     print("\n\033[1;35mRetornando ao menu principal\033[1;35m")

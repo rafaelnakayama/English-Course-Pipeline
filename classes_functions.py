@@ -33,19 +33,48 @@ def inputs_cadastro_material():
     # Cria id com uuid e da slice na string, deixando o mesmo com apenas 8 caracteres
     id_material = (str(uuid.uuid4())[:8])
 
-def visualizar_material(tipo):
+def validar_tipo():
+    Validar_2 = False
+    while (Validar_2 == False):
+        try:
+            tipo_material = int(input("\n\033[38;5;208mSelecione o Material: \033[0m"))
+            if tipo_material not in [1, 2, 3]:
+                raise ValueError("fora_do_intervalo")
+            Validar_2 = True
+        except ValueError as e:
+            if str(e) == "fora_do_intervalo":
+                print("\033[1;31mO valor deve estar entre 1 e 3.\033[0m")
+            else:
+                print("\033[1;31mO caractére inserido não é inteiro.\033[0m")
+            continue
+        except Exception:
+            print("\033[1;31mOutra coisa deu errada.\033[0m")
+            continue
+    
+    return tipo_material
+
+def visualizar_material(type):
+
+    caminho_relativo = None
+
+    if type == 1:
+        caminho_relativo = ARQUIVOS['aulas']
+    elif type == 2:
+        caminho_relativo = ARQUIVOS['textos']
+    else:
+        caminho_relativo = ARQUIVOS['exercicios']
 
     # Abre e faz a leitura do .csv
-    with open(caminho_csv, newline='') as arquivocsv:
+    with open(caminho_relativo, newline='') as arquivocsv:
 
         leitor_csv = csv.DictReader(arquivocsv)
 
-        headers = ['ID','Nome', 'Status', 'Aulas Assistidas', 'Dia do Pagamento', 'Nível']
+        headers = ['ID','Nome', 'Nível']
         table = [] # Lista Vazia
 
         # Insere cada campo da linha especifica dentro da tabela
         for linha in leitor_csv:
-            table.append([linha['ID'], linha['Nome'], linha['Status'], linha['Aulas'], linha['Dia do Pagamento'], linha['Nivel']]) 
+            table.append([linha['ID'], linha['Nome'], linha['Nivel']])
 
         print(tabulate(table, headers=headers, tablefmt="fancy_grid")) # Usa o cabecalho headers que definimos anteriormente
         # Dispensa o uso de loop, printa cada linha uma vez assim como o cabecalho
