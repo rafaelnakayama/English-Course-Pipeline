@@ -8,7 +8,12 @@ import pandas as pd
 from tabulate import tabulate
 
 # Caminho para evitar erros em outros diretorios
+
+# Caminho csv do students
 caminho_csv = os.path.join(os.path.dirname(__file__), "data", "students.csv")
+
+# Caminho da pasta historico
+historico_dir = os.path.join(os.path.dirname(__file__), "data", "historicos")
 
 def cadastrar_aluno(id_param,nome_param, status_param, aulas_param, pagamento_param, nivel_param):
     # Variavel Booleana que retorna True o csv ja foi criado e False se ainda nao
@@ -33,6 +38,20 @@ def cadastrar_aluno(id_param,nome_param, status_param, aulas_param, pagamento_pa
                            'Aulas': f'{aulas_param}', 
                            'Dia do Pagamento': f'{pagamento_param}', 
                            'Nivel': f'{nivel_param}'})
+        
+    historico_existe = os.path.exists(historico_dir)
+    if historico_existe == False:
+        os.makedirs("historicos", exist_ok=True)
+
+    caminho_aulas_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
+    caminho_textos_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
+    caminho_exercicios_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
+
+    with open(historico_dir, "a", newline='') as historicocsv:
+
+        chaves_historico_csv = ["id", "name"]
+        escritor = csv.DictWriter(historicocsv, fieldnames=chaves_historico_csv)
+
 
 def visualizar_alunos():
     # Abre e faz a leitura do .csv

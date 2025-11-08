@@ -99,6 +99,7 @@ def criar_csvs(service):
                 pass
 
     aulas_df = pd.DataFrame(todas_aulas)
+    # Extrai a parte 'Class' da string, transforma em float e dai ordena usando RE dentro do pandas
     aulas_df['numero'] = aulas_df['name'].str.extract(r'Class\s+(\d+(?:\.\d+)?)').astype(float)
     aulas_df = aulas_df.sort_values(by="numero", ascending=True)
     aulas_df.drop(columns=['numero'], inplace=True)
