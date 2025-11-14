@@ -125,7 +125,6 @@ def main_menu():
 
                     cf.adicionar_material(id_aluno_m, tipo_m)
                     
-
                 # opcao == 4 (remove) yet to be made
 
                 elif opcao == 5:

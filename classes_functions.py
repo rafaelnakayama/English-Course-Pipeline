@@ -7,6 +7,8 @@ import os
 import pandas as pd
 from tabulate import tabulate
 
+import re
+
 # para caminhos
 base_dir = os.path.dirname(__file__)
 PASTA_DATA = 'data'
@@ -26,7 +28,7 @@ def adicionar_material(id_param, tipo_param):
     # Inicia as variaveis que vao receber diferentes valores dependendo dos inputs
     caminho_destino = None
     caminho_relativo = None
-    nome_material = None
+    nome_01 = None
     print_ui = None
 
     if tipo_param == 1:
@@ -44,14 +46,16 @@ def adicionar_material(id_param, tipo_param):
         caminho_destino = caminho_exercicios_aluno_csv
         print_ui = "Exercicio"
 
-    nome_material = str(input(f"\033[32mInformar o nome do {print_ui}: \033[1;31m")).strip()
+    nome_01 = str(input(f"\033[32mInformar o nome do {print_ui}: \033[1;31m")).strip()
+    nome_inserido_normalizado = normalizar_nome_material(nome_01)
 
-    material_existe(nome_material, tipo_param) # Vai retornar True ou False
-    while (material_existe(nome_material, tipo_param) == False):
+    material_existe(nome_inserido_normalizado, tipo_param) # Vai retornar True ou False
+    while (material_existe(nome_inserido_normalizado, tipo_param) == False):
         print(f"\033[1;31mEste {print_ui} não está no banco de dados.\033[1;31m")
-        nome_material = str(input(f"\033[32mInforme o nome do {print_ui}: \033[1;31m"))
+        nome_01 = str(input(f"\033[32mInforme o nome do {print_ui}: \033[1;31m"))
+        nome_inserido_normalizado = normalizar_nome_material(nome_01)
 
-    id_material = pegar_id_por_nome_M(nome_material, caminho_relativo)
+    id_material = pegar_id_por_nome_M(nome_inserido_normalizado, caminho_relativo)
 
     # Adicionando ao respectivo csv
     df_origem = pd.read_csv(caminho_relativo)
@@ -63,43 +67,42 @@ def adicionar_material(id_param, tipo_param):
     df_destino.loc[len(df_destino)] = linha_copia
     df_destino.to_csv(caminho_destino, index=False)
 
-    print(f"\nMaterial {nome_material} adicionado com sucesso ao historico do aluno com ID {id_param}.")
+    print(f"\nMaterial {nome_inserido_normalizado} adicionado com sucesso ao historico do aluno com ID {id_param}.")
+
+
+def normalizar_nome_material(nome):
+    nome = nome.strip().lower()
+    nome = re.sub(r'\.pdf$|\.txt$|\.docx$', '', nome)  # remove extensão se houver
+    nome = re.sub(r'\s+', ' ', nome)  # normaliza espaços internos
+    return nome
 
 def pegar_id_por_nome_M(nome, caminho):
+    df = pd.read_csv(caminho)
+
+    df['name_norm'] = df['name'].apply(normalizar_nome_material)
+    nome_norm = normalizar_nome_material(nome)
+
+    material = df[df['name_norm'] == nome_norm]
+
+    if not material.empty:
+        return material.iloc[0]['id']
+
+    return None
+
+def material_existe(nome_teste, tipo_param):
+    if tipo_param == 1:
+        caminho = ARQUIVOS['aulas']
+    elif tipo_param == 2:
+        caminho = ARQUIVOS['textos']
+    else:
+        caminho = ARQUIVOS['exercicios']
 
     df = pd.read_csv(caminho)
 
-    df['name'] = df['name'].str.strip()
+    df['name_norm'] = df['name'].apply(normalizar_nome_material)
+    nome_teste_norm = normalizar_nome_material(nome_teste)
 
-    # Filtra o aluno correspondente
-    material_encontrado = df[df['name'] == nome]
-
-    if not material_encontrado.empty:
-        id_material = material_encontrado['id'].iloc[0]
-        return id_material
-    else:
-        return None
-
-def material_existe(nome_teste, tipo_param):
-    caminho_relativo = None
-
-    if tipo_param == 1:
-        caminho_relativo = ARQUIVOS['aulas']
-    elif tipo_param == 2:
-        caminho_relativo = ARQUIVOS['textos']
-    else:
-        caminho_relativo = ARQUIVOS['exercicios']
-
-    # dataframe
-    df = pd.read_csv(caminho_relativo)
-
-    df['name'] = df['name'].str.strip().str.lower()
-    nome_teste = nome_teste.strip().lower()
-
-    # este len serve para verificar se existe ao menos uma linha com o nome do material
-    # se houver, este valor sera maior ou igual a 1, se nao, sera igual a zero
-    # Com o return podemos retornar um valor booleano True se a condicional (>= 1) for verdadeira, e False caso contrario
-    return len(df.loc[df['name'] == nome_teste]) >= 1
+    return (df['name_norm'] == nome_teste_norm).any()
 
 def validar_tipo():
     print("\033[38;5;208m(1) Aulas, (2) Textos ou (3) Exercicios\033[0m")
