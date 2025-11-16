@@ -106,10 +106,24 @@ def main_menu():
                     continue
 
                 if opcao == 1:
-                    tipo = cf.validar_tipo()
-                    cf.visualizar_material(tipo)
+                    tipo_v = cf.validar_tipo()
+                    cf.visualizar_material(tipo_v)
 
                 # opcao == 2 (viz) yet to be made
+                elif opcao == 2:
+                    nome_aluno_h = str(input("\033[32mInforme o nome do aluno: \033[1;31m")).lower().strip()
+                    sf.aluno_existe(nome_aluno_h)
+
+                    while (sf.aluno_existe(nome_aluno_h) == False):
+                        print("\033[1;31mEste aluno não está no banco de dados.\033[1;31m")
+                        nome_aluno_h = str(input("\033[32mInforme o nome do aluno: \033[1;31m"))
+
+                    id_aluno_h = sf.pegar_id_por_nome(nome_aluno_h)
+
+                    tipo_h = cf.validar_tipo()
+
+                    cf.visualizar_historico(id_aluno_h, tipo_h)
+
 
                 elif opcao == 3:
                     nome_aluno_m = str(input("\033[32mInforme o nome do aluno: \033[1;31m")).lower().strip()

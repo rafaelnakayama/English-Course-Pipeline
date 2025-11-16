@@ -69,6 +69,16 @@ def visualizar_material(type):
         print(tabulate(table, headers=headers, tablefmt="fancy_grid")) # Usa o cabecalho headers que definimos anteriormente
         # Dispensa o uso de loop, printa cada linha uma vez assim como o cabecalho
 
+"""
+OPCAO 2 DO MENU MATERIAIS
+"""
+
+def visualizar_historico(id_param):
+
+    # Os 3 caminhos do csv de cada aluno
+    caminho_aulas_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
+    caminho_textos_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
+    caminho_exercicios_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
 
 """
 OPCAO 3 DO MENU MATERIAIS
