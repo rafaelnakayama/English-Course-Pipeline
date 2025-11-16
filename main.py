@@ -107,6 +107,11 @@ def main_menu():
                 elif opcao == 4:
                     nome_aluno_r = ui.pegar_nome()
 
+                    id_aluno_r = sf.pegar_id_por_nome(nome_aluno_r)
+
+                    tipo_r = cf.validar_tipo()
+
+                    cf.remover_do_historico(id_aluno_r, tipo_r)
 
                 elif opcao == 5:
                     print("\n\033[1;35mRetornando ao menu principal\033[1;35m")

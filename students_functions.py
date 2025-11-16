@@ -5,7 +5,6 @@ This file contains the features of the student
 import csv
 import os
 import pandas as pd
-import ui_functions as ui
 
 from tabulate import tabulate
 
