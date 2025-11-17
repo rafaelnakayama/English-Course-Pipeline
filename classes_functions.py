@@ -128,7 +128,7 @@ def adicionar_material(id_param, tipo_param):
     df_destino.loc[len(df_destino)] = linha_copia
     df_destino.to_csv(caminho_destino, index=False)
 
-    print(f"\nMaterial {nome_inserido_normalizado} adicionado com sucesso ao historico do aluno com ID {id_param}.")
+    print(f"\nMaterial {nome_inserido_normalizado} ADICIONADO com sucesso ao historico do aluno com ID {id_param}.")
 
 """
 OPCAO 4 DO MENU MATERIAIS
@@ -170,7 +170,7 @@ def remover_do_historico(id_param, tipo_param):
     df_remover_por_valor = df[df['id'] != f'{id_material}']
     df_remover_por_valor.to_csv(caminho_relativo, index=False)
 
-    print(f"\nMaterial {nome_inserido_normalizado} adicionado com sucesso ao historico do aluno com ID {id_param}.")
+    print(f"\nMaterial {nome_inserido_normalizado} REMOVIDO com sucesso ao historico do aluno com ID {id_param}.")
 
 """
 Funções auxiliares:

@@ -95,10 +95,6 @@ def main_menu():
 
                     cf.visualizar_historico(id_aluno_h, tipo_h)
 
-                    # Insere a quantidade atualizada de aulas no historico do aluno
-                    aulas_assistidas = ui.quantidade_aulas(id_aluno_h)
-                    sf.editar_aluno(nome_aluno_h, 'Aulas', aulas_assistidas)
-
                 elif opcao == 3:
                     nome_aluno_m = ui.pegar_nome()
 
@@ -107,6 +103,9 @@ def main_menu():
                     tipo_m = cf.validar_tipo()
 
                     cf.adicionar_material(id_aluno_m, tipo_m)
+
+                    aulas_assistidas = ui.quantidade_aulas(id_aluno_m)
+                    sf.editar_aluno(nome_aluno_m, 'Aulas', aulas_assistidas)
                     
                 elif opcao == 4:
                     nome_aluno_r = ui.pegar_nome()
@@ -116,6 +115,9 @@ def main_menu():
                     tipo_r = cf.validar_tipo()
 
                     cf.remover_do_historico(id_aluno_r, tipo_r)
+
+                    aulas_assistidas = ui.quantidade_aulas(id_aluno_r)
+                    sf.editar_aluno(nome_aluno_r, 'Aulas', aulas_assistidas)
 
                 elif opcao == 5:
                     print("\n\033[1;35mRetornando ao menu principal\033[1;35m")

@@ -10,10 +10,8 @@ from tabulate import tabulate
 
 # Caminhos para evitar erros em outros diretorios:
 
-# Caminho csv do students
 caminho_csv = os.path.join(os.path.dirname(__file__), "data", "students.csv")
 
-# Caminho da pasta historico
 historico_dir = os.path.join(os.path.dirname(__file__), "data", "historicos")
 
 def cadastrar_aluno(id_param,nome_param, status_param, aulas_param, pagamento_param, nivel_param):
@@ -47,12 +45,9 @@ def cadastrar_aluno(id_param,nome_param, status_param, aulas_param, pagamento_pa
     historico_creator(id_param)
 
 def historico_creator(id_param):
-    # Os 3 caminhos do csv de cada aluno
     caminho_aulas_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
     caminho_textos_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
     caminho_exercicios_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
-
-    # Verificando e criando os materiais:
 
     criar_csv_vazio(caminho_aulas_aluno_csv)
     criar_csv_vazio(caminho_textos_aluno_csv)
@@ -61,7 +56,6 @@ def historico_creator(id_param):
 def criar_csv_vazio(caminho):
     vazio_material = 0
 
-    # Verificando e criando csv:
     material_existe = os.path.exists(caminho)
 
     if material_existe:
@@ -76,33 +70,28 @@ def criar_csv_vazio(caminho):
             escritor.writeheader()
 
 def visualizar_alunos():
-    # Abre e faz a leitura do .csv
     with open(caminho_csv, newline='') as arquivocsv:
 
         leitor_csv = csv.DictReader(arquivocsv)
 
         headers = ['ID','Nome', 'Status', 'Aulas Assistidas', 'Dia do Pagamento', 'Nível']
-        table = [] # Lista Vazia
+        table = [] 
 
-        # Insere cada campo da linha especifica dentro da tabela
         for linha in leitor_csv:
             table.append([linha['ID'], linha['Nome'], linha['Status'], linha['Aulas'], linha['Dia do Pagamento'], linha['Nivel']]) 
 
-        print(tabulate(table, headers=headers, tablefmt="fancy_grid")) # Usa o cabecalho headers que definimos anteriormente
+        print(tabulate(table, headers=headers, tablefmt="fancy_grid")) 
+        # Usa o cabecalho headers que definimos anteriormente
         # Dispensa o uso de loop, printa cada linha uma vez assim como o cabecalho
 
 def remover_aluno(aluno, id_aluno):
-
     if aluno == None:
         print("\n\033[1;35mOperação cancelada. Retornando ao menu principal...\033[0m")
-        
     else:
-        # Os 3 caminhos do csv de cada aluno
         caminho_aulas_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_aluno}_aulas.csv")
         caminho_textos_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_aluno}_textos.csv")
         caminho_exercicios_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_aluno}_exercicios.csv")
 
-        # dataframes
         df = pd.read_csv(caminho_csv)
 
         # Remove do students.csv por nome
@@ -116,7 +105,6 @@ def remover_aluno(aluno, id_aluno):
         print(f"\nSUCESSO! o aluno {aluno} foi removido com sucesso.")
 
 def pegar_id_por_nome(nome):
-
     df = pd.read_csv(caminho_csv)
 
     df['Nome'] = df['Nome'].str.strip().str.lower()
