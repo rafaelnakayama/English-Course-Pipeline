@@ -14,14 +14,7 @@ ARQUIVOS = {
     'textos': os.path.join(base_dir, PASTA_DATA, 'textos.csv')
 }
 
-"""
-OPCAO 1 DO MENU MATERIAIS
-"""
-
-def visualizar_material(tipo):
-
-    caminho_relativo = None
-
+def visualizar_material(tipo):      # Opcao 1 do menu materiais
     if tipo == 1:
         caminho_relativo = ARQUIVOS['aulas']
     elif tipo == 2:
@@ -36,31 +29,18 @@ def visualizar_material(tipo):
         headers = ['id','name']
         table = []
 
-        # Insere cada campo da linha especifica dentro da tabela tabulate
         for linha in leitor_csv:
             table.append([linha['id'], linha['name']])
 
         print(tabulate(table, headers=headers, tablefmt="fancy_grid"))
 
-"""
-OPCAO 2 DO MENU MATERIAIS
-"""
-
-def visualizar_historico(id_param, tipo):
-
-    # Os 3 caminhos do csv de cada aluno
-    caminho_aulas_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
-    caminho_textos_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
-    caminho_exercicios_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
-
-    caminho_relativo = None
-
+def visualizar_historico(id_param, tipo):   # Opcao 2 do menu materiais
     if tipo == 1:
-        caminho_relativo = caminho_aulas_aluno_csv
+        caminho_relativo = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
     elif tipo == 2:
-        caminho_relativo = caminho_textos_aluno_csv
+        caminho_relativo = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
     else:
-        caminho_relativo = caminho_exercicios_aluno_csv
+        caminho_relativo = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
 
     with open(caminho_relativo, newline='') as arquivocsv:
 
@@ -69,21 +49,12 @@ def visualizar_historico(id_param, tipo):
         headers = ['id','name']
         table = []
 
-        # Insere cada campo da linha especifica dentro da tabela tabulate
         for linha in leitor_csv:
             table.append([linha['id'], linha['name']])
 
         print(tabulate(table, headers=headers, tablefmt="fancy_grid"))
 
-"""
-OPCAO 3 DO MENU MATERIAIS
-"""
-
-def adicionar_material(id_param, tipo_param):
-    
-    caminho_aulas_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
-    caminho_textos_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
-    caminho_exercicios_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
+def adicionar_material(id_param, tipo_param):   # Opcao 3 do menu materiais
 
     caminho_destino = None
     caminho_origem = None
@@ -92,23 +63,23 @@ def adicionar_material(id_param, tipo_param):
 
     if tipo_param == 1:
         caminho_origem = ARQUIVOS['aulas']
-        caminho_destino = caminho_aulas_aluno_csv
+        caminho_destino = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
         print_ui = "Aula"
 
     elif tipo_param == 2:
         caminho_origem = ARQUIVOS['textos']
-        caminho_destino = caminho_textos_aluno_csv
+        caminho_destino = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
         print_ui = "Texto"
 
     else:
         caminho_origem = ARQUIVOS['exercicios']
-        caminho_destino = caminho_exercicios_aluno_csv
+        caminho_destino = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
         print_ui = "Exercicio"
 
     nome_01 = str(input(f"\033[32mInformar o nome do {print_ui}: \033[1;31m")).strip()
     nome_inserido_normalizado = normalizar_nome_material(nome_01)
 
-    material_existe(nome_inserido_normalizado, tipo_param) # Vai retornar True ou False
+    material_existe(nome_inserido_normalizado, tipo_param)
     while (material_existe(nome_inserido_normalizado, tipo_param) == False):
         print(f"\033[1;31mEste {print_ui} não está no banco de dados.\033[1;31m")
         nome_01 = str(input(f"\033[32mInforme o nome do {print_ui}: \033[1;31m"))
@@ -137,11 +108,7 @@ def adicionar_material(id_param, tipo_param):
 
     print(f"\nMaterial {nome_inserido_normalizado} ADICIONADO com sucesso ao historico do aluno com ID {id_param}.")
 
-"""
-OPCAO 4 DO MENU MATERIAIS
-"""
-
-def remover_do_historico(id_param, tipo_param):
+def remover_do_historico(id_param, tipo_param):     # Opcao 4 do menu materiais
     
     caminho_aulas_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
     caminho_textos_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
@@ -164,7 +131,7 @@ def remover_do_historico(id_param, tipo_param):
     nome_remover = str(input(f"\033[32mInformar o nome do {print_ui}: \033[1;31m")).strip()
     nome_inserido_normalizado = normalizar_nome_material(nome_remover)
 
-    material_existe(nome_inserido_normalizado, tipo_param) # Vai retornar True ou False
+    material_existe(nome_inserido_normalizado, tipo_param)
     while (material_existe(nome_inserido_normalizado, tipo_param) == False):
         print(f"\033[1;31mEste {print_ui} não está no banco de dados.\033[1;31m")
         nome_01 = str(input(f"\033[32mInforme o nome do {print_ui}: \033[1;31m"))
@@ -173,19 +140,12 @@ def remover_do_historico(id_param, tipo_param):
     id_material = pegar_id_por_nome_M(nome_inserido_normalizado, caminho_relativo)
 
     df = pd.read_csv(caminho_relativo)
-    # Remove do .csv por nome
     df_remover_por_valor = df[df['id'] != f'{id_material}']
     df_remover_por_valor.to_csv(caminho_relativo, index=False)
 
     print(f"\nMaterial {nome_inserido_normalizado} REMOVIDO com sucesso ao historico do aluno com ID {id_param}.")
 
-"""
-Funções auxiliares:
-"""
-
-#Identifica o tipo de Material
-
-def validar_tipo():
+def validar_tipo():     # Identifica o tipo de Material
     print("\033[38;5;208m(1) Aulas, (2) Textos ou (3) Exercicios\033[0m")
     Validar_2 = False
     while (Validar_2 == False):
@@ -206,17 +166,13 @@ def validar_tipo():
     
     return tipo_material
 
-# normaliza o nome do material
-
-def normalizar_nome_material(nome):
+def normalizar_nome_material(nome):     # normaliza o nome do material
     nome = nome.strip().lower()
-    nome = re.sub(r'\.pdf$|\.txt$|\.docx$', '', nome)  # remove extensão se houver
-    nome = re.sub(r'\s+', ' ', nome)  # normaliza espaços internos
+    nome = re.sub(r'\.pdf$|\.txt$|\.docx$', '', nome)  # remove extensao se houver
+    nome = re.sub(r'\s+', ' ', nome)  # normaliza espacos internos
     return nome
 
-# recebe o nome e retorna o id com o input do nome
-
-def pegar_id_por_nome_M(nome, caminho):
+def pegar_id_por_nome_M(nome, caminho):     # recebe o nome e retorna o id com o input do nome
     df = pd.read_csv(caminho)
 
     df['name_norm'] = df['name'].apply(normalizar_nome_material)
@@ -229,9 +185,7 @@ def pegar_id_por_nome_M(nome, caminho):
 
     return None
 
-# recebe o tipo e o nome do material e retorna se ele existe no .csv de registro
-
-def material_existe(nome_teste, tipo_param):
+def material_existe(nome_teste, tipo_param):    # recebe o tipo e o nome do material e retorna se ele existe no .csv de registro
     if tipo_param == 1:
         caminho = ARQUIVOS['aulas']
     elif tipo_param == 2:
@@ -240,24 +194,18 @@ def material_existe(nome_teste, tipo_param):
         caminho = ARQUIVOS['exercicios']
 
     df = pd.read_csv(caminho)
-
     df['name_norm'] = df['name'].apply(normalizar_nome_material)
     nome_teste_norm = normalizar_nome_material(nome_teste)
 
     return (df['name_norm'] == nome_teste_norm).any()
 
 def material_cadastrado(nome_teste, tipo_param, id_param):
-
-    caminho_aulas_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
-    caminho_textos_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
-    caminho_exercicios_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
-
     if tipo_param == 1:
-        caminho = caminho_aulas_aluno_csv
+        caminho = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
     elif tipo_param == 2:
-        caminho = caminho_textos_aluno_csv
+        caminho = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
     else:
-        caminho = caminho_exercicios_aluno_csv
+        caminho = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
 
     df = pd.read_csv(caminho)
 

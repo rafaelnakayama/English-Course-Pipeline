@@ -3,22 +3,14 @@ import ui_functions as ui
 import classes_functions as cf
 
 def main_menu():
-    Check = False
-
     sf.verificar_csv()
-
     ui.menu_interface()
 
-    while (Check == False):
+    while (True):
         try:
             option = int(input("\n\033[32mSelecione uma das opcoes acima: \033[0m"))
         except ValueError:
             print("\033[1;31mO caractére inserido não é inteiro.\033[1;31m")
-            Check = False
-            continue
-        except:
-            print("\033[1;31mOutra coisa deu errada.\033[1;31m")
-            Check = False
             continue
 
         if option == 1:
@@ -59,7 +51,6 @@ def main_menu():
 
         elif option == 5:
             ui.menu_materiais()
-
             Validar = False
             
             while(Validar == False):
@@ -67,10 +58,6 @@ def main_menu():
                     opcao = int(input("\n\033[38;5;208mSelecione uma das opcoes acima: \033[0m"))
                 except ValueError:
                     print("\033[1;31mO caractére inserido não é inteiro.\033[1;31m")
-                    Validar = False
-                    continue
-                except:
-                    print("\033[1;31mOutra coisa deu errada.\033[1;31m")
                     Validar = False
                     continue
 
@@ -117,7 +104,6 @@ def main_menu():
 
                 elif opcao == 6:
                     Validar = True
-                    Check = True
                     print("\n\033[1;35mSaindo do programa...\033[1;35m")
 
                 else:
@@ -132,8 +118,7 @@ def main_menu():
 
         elif option == 6:
             print("\n\033[1;35mSaindo do programa...\033[1;35m")
-            Check = True
-
+            break
         else:
             print(f"\033[1;31mA Opção '{option}' não exite.\033[1;35m")
     
