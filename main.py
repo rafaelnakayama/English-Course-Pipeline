@@ -22,17 +22,9 @@ def main_menu():
             continue
 
         if option == 1:
-            # Captura os valores que existem dentro de ui.inputs_cadastro()
             id_aluno, nome_aluno, status_aluno, aulas_aluno, pagamento_aluno, nivel_aluno = ui.inputs_cadastro()
 
-            sf.cadastrar_aluno(
-                            id_aluno,
-                            nome_aluno, 
-                            status_aluno, 
-                            aulas_aluno,
-                            pagamento_aluno,
-                            nivel_aluno,
-                            )
+            sf.cadastrar_aluno(id_aluno, nome_aluno, status_aluno, aulas_aluno, pagamento_aluno, nivel_aluno)
             
             print("\n")
             ui.menu_interface()
@@ -42,7 +34,7 @@ def main_menu():
             ui.menu_interface()
 
         elif option == 3:
-            ui.menu_option_3()
+            ui.menu_editar()
 
             alterar_por_nome = ui.pegar_nome()
 
