@@ -23,10 +23,10 @@ def main_menu():
 
         if option == 1:
             # Captura os valores que existem dentro de ui.inputs_cadastro()
-            id_aluno_CAD, nome_aluno, status_aluno, aulas_aluno, pagamento_aluno, nivel_aluno = ui.inputs_cadastro()
+            id_aluno, nome_aluno, status_aluno, aulas_aluno, pagamento_aluno, nivel_aluno = ui.inputs_cadastro()
 
             sf.cadastrar_aluno(
-                            id_aluno_CAD,
+                            id_aluno,
                             nome_aluno, 
                             status_aluno, 
                             aulas_aluno,
@@ -87,37 +87,37 @@ def main_menu():
                     cf.visualizar_material(tipo_v)
 
                 elif opcao == 2:
-                    nome_aluno_h = ui.pegar_nome()
+                    nome_aluno_historico = ui.pegar_nome()
 
-                    id_aluno_h = sf.pegar_id_por_nome(nome_aluno_h)
+                    id_aluno_historico = sf.pegar_id_por_nome(nome_aluno_historico)
 
-                    tipo_h = cf.validar_tipo()
+                    tipo_historico = cf.validar_tipo()
 
-                    cf.visualizar_historico(id_aluno_h, tipo_h)
+                    cf.visualizar_historico(id_aluno_historico, tipo_historico)
 
                 elif opcao == 3:
-                    nome_aluno_m = ui.pegar_nome()
+                    nome_aluno_adicionar = ui.pegar_nome()
 
-                    id_aluno_m = sf.pegar_id_por_nome(nome_aluno_m)
+                    id_aluno_adicionar = sf.pegar_id_por_nome(nome_aluno_adicionar)
 
-                    tipo_m = cf.validar_tipo()
+                    tipo_adicionar = cf.validar_tipo()
 
-                    cf.adicionar_material(id_aluno_m, tipo_m)
+                    cf.adicionar_material(id_aluno_adicionar, tipo_adicionar)
 
-                    aulas_assistidas = ui.quantidade_aulas(id_aluno_m)
-                    sf.editar_aluno(nome_aluno_m, 'Aulas', aulas_assistidas)
+                    aulas_assistidas = ui.quantidade_aulas(id_aluno_adicionar)
+                    sf.editar_aluno(nome_aluno_adicionar, 'Aulas', aulas_assistidas)
                     
                 elif opcao == 4:
-                    nome_aluno_r = ui.pegar_nome()
+                    nome_aluno_remover = ui.pegar_nome()
 
-                    id_aluno_r = sf.pegar_id_por_nome(nome_aluno_r)
+                    id_aluno_remover = sf.pegar_id_por_nome(nome_aluno_remover)
 
-                    tipo_r = cf.validar_tipo()
+                    tipo_remover = cf.validar_tipo()
 
-                    cf.remover_do_historico(id_aluno_r, tipo_r)
+                    cf.remover_do_historico(id_aluno_remover, tipo_remover)
 
-                    aulas_assistidas = ui.quantidade_aulas(id_aluno_r)
-                    sf.editar_aluno(nome_aluno_r, 'Aulas', aulas_assistidas)
+                    aulas_assistidas = ui.quantidade_aulas(id_aluno_remover)
+                    sf.editar_aluno(nome_aluno_remover, 'Aulas', aulas_assistidas)
 
                 elif opcao == 5:
                     print("\n\033[1;35mRetornando ao menu principal\033[1;35m")

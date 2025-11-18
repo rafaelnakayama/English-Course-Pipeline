@@ -1,33 +1,23 @@
-"""
-This file contains the features of the student
-"""
-
 import csv
 import os
 import pandas as pd
 
 from tabulate import tabulate
 
-# Caminhos para evitar erros em outros diretorios:
-
 caminho_csv = os.path.join(os.path.dirname(__file__), "data", "students.csv")
-
 historico_dir = os.path.join(os.path.dirname(__file__), "data", "historicos")
 
 def cadastrar_aluno(id_param,nome_param, status_param, aulas_param, pagamento_param, nivel_param):
-    # Variavel Booleana que retorna True o csv ja foi criado e False se ainda nao
     arquivo_existe = os.path.exists(caminho_csv)
                 
     if arquivo_existe:
-        vazio = os.path.getsize(caminho_csv)  # os.path.getsize ja pega o numero em bytes direto
+        vazio = os.path.getsize(caminho_csv)
 
-    # Registra no .csv as informacoes, coloquei no modo append para acrescentar e nunca sobrescrever
     with open(caminho_csv, "a", newline='') as arquivocsv:
 
         chaves_csv = ["ID","Nome","Status","Aulas","Dia do Pagamento","Nivel"]
         escritor = csv.DictWriter(arquivocsv, fieldnames=chaves_csv)
 
-        # Se o caminho nao existe ou existe mas esta vazio, escreva o cabecalho
         if arquivo_existe == False or vazio == 0:
             escritor.writeheader()
   
@@ -80,9 +70,7 @@ def visualizar_alunos():
         for linha in leitor_csv:
             table.append([linha['ID'], linha['Nome'], linha['Status'], linha['Aulas'], linha['Dia do Pagamento'], linha['Nivel']]) 
 
-        print(tabulate(table, headers=headers, tablefmt="fancy_grid")) 
-        # Usa o cabecalho headers que definimos anteriormente
-        # Dispensa o uso de loop, printa cada linha uma vez assim como o cabecalho
+        print(tabulate(table, headers=headers, tablefmt="fancy_grid"))
 
 def remover_aluno(aluno, id_aluno):
     if aluno == None:
@@ -94,7 +82,6 @@ def remover_aluno(aluno, id_aluno):
 
         df = pd.read_csv(caminho_csv)
 
-        # Remove do students.csv por nome
         df_remover_por_valor = df[df['Nome'] != f'{aluno}']
         df_remover_por_valor.to_csv("data/students.csv", index=False)
 
@@ -109,7 +96,6 @@ def pegar_id_por_nome(nome):
 
     df['Nome'] = df['Nome'].str.strip().str.lower()
 
-    # Filtra o aluno correspondente
     aluno_encontrado = df[df['Nome'] == nome]
 
     if not aluno_encontrado.empty:
@@ -119,21 +105,16 @@ def pegar_id_por_nome(nome):
         return None
 
 def aluno_existe(nome_teste):
-    # dataframe
     df = pd.read_csv(caminho_csv)
 
     df['Nome'] = df['Nome'].str.strip().str.lower()
     nome_teste = nome_teste.strip().lower()
 
-    # este len serve para verificar se existe ao menos uma linha com o nome do aluno informado
-    # se houver, este valor sera maior ou igual a 1, se nao, sera igual a zero
-    # Com o return podemos retornar um valor booleano True se a condicional (>= 1) for verdadeira, e False caso contrario
     return len(df.loc[df['Nome'] == nome_teste]) >= 1
 
 def editar_aluno(nome_chave, key, new_value):
     df = pd.read_csv(caminho_csv)
-    
-    # Colocando strip() e lower() para evitar erros de espacos inuteis e erros de case sensitive respectivamente
+
     df['Nome'] = df['Nome'].str.strip().str.lower()
     nome_chave = nome_chave.strip().lower()
 
@@ -144,16 +125,14 @@ def verificar_csv():
 
     header = ['ID', 'Nome', 'Status', 'Aulas', 'Dia do Pagamento', 'Nivel']
 
-    # Verifica se o arquivo existe
     if not os.path.exists(caminho_csv):
         with open(caminho_csv, mode='w', newline='', encoding='utf-8') as arquivo:
             escritor = csv.writer(arquivo)
-            escritor.writerow(header) # Insere o header
+            escritor.writerow(header)
         print("O arquivo foi criado do zero com cabecalho padrao.")
 
-    # Se nao existe mas estiver vazio (tamanho de 0 bytes), adicione o cabecalho padrao
     elif os.path.getsize(caminho_csv) == 0:
         with open(caminho_csv, mode='w', newline='', encoding='utf-8') as arquivo:
             escritor = csv.writer(arquivo)
-            escritor.writerow(header) # Insere o header
+            escritor.writerow(header)
         print("O arquivo estava vazio, o cabecalho foi criado.")

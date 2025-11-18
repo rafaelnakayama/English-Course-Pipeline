@@ -39,20 +39,21 @@ CORES = {
     "fundo_roxo": "\033[45m",
     "fundo_ciano": "\033[46m",
     "fundo_branco": "\033[47m",
+
+    # Laranja
+    "BOLD": "\033[1m",
+    "ORANGE_256": "\033[38;5;208m",  # A common orange in 256-color palette
 }
 
 def menu_materiais():
-    BOLD = "\033[1m"
-    ORANGE_256 = "\033[38;5;208m"  # A common orange in 256-color palette
-    RESET = "\033[0m"
 
-    print(f"\n{ORANGE_256}{BOLD}_MENU AULAS_{RESET}\n")
-    print(f"{ORANGE_256}1) Visualizar Material{CORES['reset']}")
-    print(f"{ORANGE_256}2) Histórico de Aulas{CORES['reset']}")
-    print(f"{ORANGE_256}3) Adicionar ao Histórico{CORES['reset']}")
-    print(f"{ORANGE_256}4) Remover do Histórico{CORES['reset']}")
-    print(f"{ORANGE_256}5) Voltar{CORES['reset']}")
-    print(f"{ORANGE_256}6) Sair{CORES['reset']}")
+    print(f"\n{CORES['ORANGE_256']}{CORES['BOLD']}_MENU AULAS_{CORES['reset']}\n")
+    print(f"{CORES['ORANGE_256']}1) Visualizar Material{CORES['reset']}")
+    print(f"{CORES['ORANGE_256']}2) Histórico de Aulas{CORES['reset']}")
+    print(f"{CORES['ORANGE_256']}3) Adicionar ao Histórico{CORES['reset']}")
+    print(f"{CORES['ORANGE_256']}4) Remover do Histórico{CORES['reset']}")
+    print(f"{CORES['ORANGE_256']}5) Voltar{CORES['reset']}")
+    print(f"{CORES['ORANGE_256']}6) Sair{CORES['reset']}")
 
 def menu_interface():
 
@@ -103,11 +104,8 @@ def confirmar_remover(nome_aluno):
     return nome_check
 
 def inputs_cadastro():
-
-    # Gera o ID do aluno uuid.uuid4()
     id_aluno = str(uuid.uuid4())
 
-    # Nome
     nome_aluno = str(input(f"{CORES['verde']}Informe o nome do aluno(a): {CORES['reset']}")).lower()
     sf.aluno_existe(nome_aluno)
 
@@ -115,7 +113,6 @@ def inputs_cadastro():
         print(f"{CORES['vermelho']}Este aluno já está cadastrado.{CORES['reset']}")
         nome_aluno = str(input(f"{CORES['verde']}Informe o nome do aluno(a): {CORES['reset']}"))
 
-    # Status
     status_aluno = str(input(f"{CORES['verde']}Status do Aluno (A - Ativo, D - Desligado): {CORES['reset']}")).upper()
     if status_aluno == "A":
         status_aluno = "Ativo"
@@ -124,19 +121,15 @@ def inputs_cadastro():
     else:
         status_aluno = "UNKNOWN"
 
-    # Aulas
     aulas_aluno = 0
         
-    # Pagamento
     pagamento_aluno = str(input(f"{CORES['verde']}Dia e mês do último pagamento: {CORES['reset']}"))
 
-    # Nivel
     nivel_aluno = str(input(f"{CORES['verde']}Nível do aluno: {CORES['reset']}"))
 
     return id_aluno, nome_aluno, status_aluno, aulas_aluno, pagamento_aluno, nivel_aluno
 
 def quantidade_aulas(id_param):
-    # Os 3 caminhos do csv de cada aluno
     caminho_aulas_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
     caminho_textos_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
     caminho_exercicios_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")

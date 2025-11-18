@@ -5,7 +5,6 @@ import re
 
 from tabulate import tabulate
 
-# para caminhos
 base_dir = os.path.dirname(__file__)
 PASTA_DATA = 'data'
 
@@ -81,12 +80,11 @@ OPCAO 3 DO MENU MATERIAIS
 """
 
 def adicionar_material(id_param, tipo_param):
-    # Os 3 caminhos do csv de cada aluno
+    
     caminho_aulas_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
     caminho_textos_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
     caminho_exercicios_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
 
-    # Inicia as variaveis que vao receber diferentes valores dependendo dos inputs
     caminho_destino = None
     caminho_origem = None
     nome_01 = None
@@ -144,7 +142,7 @@ OPCAO 4 DO MENU MATERIAIS
 """
 
 def remover_do_historico(id_param, tipo_param):
-    # Os 3 caminhos do csv de cada aluno
+    
     caminho_aulas_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
     caminho_textos_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
     caminho_exercicios_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
@@ -250,7 +248,6 @@ def material_existe(nome_teste, tipo_param):
 
 def material_cadastrado(nome_teste, tipo_param, id_param):
 
-    # Os 3 caminhos do csv de cada aluno
     caminho_aulas_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_aulas.csv")
     caminho_textos_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_textos.csv")
     caminho_exercicios_aluno_csv = os.path.join(os.path.dirname(__file__), "data", "historicos", f"{id_param}_exercicios.csv")
