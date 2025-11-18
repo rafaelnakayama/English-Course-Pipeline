@@ -149,16 +149,12 @@ def inputs_editar():
     while (True):
         try:
             selecao = int(input("\033[1;32mSelecione um valor: \033[0m"))
-            if selecao >= 1 and selecao <= 5:
+            if selecao >= 1 and selecao <= 4:
                 break
             else:
-                print("\033[1;31mUm valor entre 1 e 5 deve ser inserido.\033[1;31m")
-                break
+                print("\033[1;31mUm valor entre 1 e 4 deve ser inserido.\033[1;31m")
         except ValueError:
             print("\033[1;31mO caractére inserido não é inteiro.\033[1;31m")
-            continue
-        except:
-            print("\033[1;31mOutra coisa deu errada.\033[1;31m")
             continue
 
     if selecao == 1:
