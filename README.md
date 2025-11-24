@@ -63,19 +63,7 @@ No online database is required. After Drive syncing, everything runs locally.
 
 ## 📂 Project Structure (Simplified):
 
-data/
-students.csv
-texts.csv
-exercises.csv
-notes.csv
-classes.csv
-
-src/
-main.py
-students_functions.py
-classes_functions.py
-ui_functions.py
-utils.py
+![alt text]({6429519F-FE66-411D-9E62-AB4DCFC49EF5}.png)
 
 ## 👤 Author
 
