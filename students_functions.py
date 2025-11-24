@@ -7,6 +7,11 @@ from tabulate import tabulate
 
 caminho_csv = utils.writable_path("data", "students.csv")
 historico_dir = utils.writable_path("data", "historicos")
+caminho_anotacoes = utils.writable_path("data", "notes.csv")
+
+def criar_pasta_historico():
+    historicos_dir = utils.writable_path("data", "historicos")
+    os.makedirs(historicos_dir, exist_ok=True)
 
 def cadastrar_aluno(id_param,nome_param, status_param, aulas_param, pagamento_param, nivel_param):
     arquivo_existe = os.path.exists(caminho_csv)
@@ -79,9 +84,13 @@ def remover_aluno(aluno, id_aluno):
         caminho_exercicios_aluno_csv = utils.writable_path("data", "historicos", f"{id_aluno}_exercicios.csv")
 
         df = pd.read_csv(caminho_csv)
+        df_anotacoes = pd.read_csv(caminho_anotacoes)
 
         df_remover_por_valor = df[df['Nome'] != f'{aluno}']
         df_remover_por_valor.to_csv(utils.writable_path("data", "students.csv"), index=False)
+
+        df_remover_lembrete = df_anotacoes[df_anotacoes['Nome'] != f'{aluno}']
+        df_remover_lembrete.to_csv(utils.writable_path("data", "notes.csv"), index=False)
 
         os.remove(caminho_aulas_aluno_csv)
         os.remove(caminho_textos_aluno_csv)

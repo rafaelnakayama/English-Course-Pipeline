@@ -6,6 +6,7 @@ def main_menu():
     sf.verificar_csv()
     cf.verificar_anotacoes_csv()
     ui.menu_interface()
+    sf.criar_pasta_historico()
 
     while (True):
         try:

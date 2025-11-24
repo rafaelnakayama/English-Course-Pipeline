@@ -265,11 +265,11 @@ def material_existe(nome_teste, tipo_param):    # recebe o tipo e o nome do mate
 
 def material_cadastrado(nome_teste, tipo_param, id_param):
     if tipo_param == 1:
-        caminho = utils.resource_path("data", "historicos", f"{id_param}_aulas.csv")
+        caminho = utils.writable_path("data", "historicos", f"{id_param}_aulas.csv")
     elif tipo_param == 2:
-        caminho = utils.resource_path("data", "historicos", f"{id_param}_textos.csv")
+        caminho = utils.writable_path("data", "historicos", f"{id_param}_textos.csv")
     else:
-        caminho = utils.resource_path("data", "historicos", f"{id_param}_exercicios.csv")
+        caminho = utils.writable_path("data", "historicos", f"{id_param}_exercicios.csv")
 
     df = pd.read_csv(caminho)
 
