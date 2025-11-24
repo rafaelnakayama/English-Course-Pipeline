@@ -1,6 +1,6 @@
 # Students Log (Student Management Console System)
 
-## Overview
+## 📌 Overview
 
 After almost two years giving English classes, I realized I needed a system to help me organize and track of my student progress. Each student learns different things at different times, and I needed a structured way to store what each student had already done in my course.
 
@@ -8,7 +8,7 @@ This program was developed entirely for my **personal use**, tailored to my work
 
 ---
 
-## How the System Works
+## ❓ How the System Works
 
 I have a complete English course uploaded on **Google Drive**, containing:
 
@@ -30,7 +30,7 @@ Once this information is downloaded, the program writes and updates all data int
 - When a class is assigned to a student, it means the student has watched it  
 - The system keeps a general information of all students progress in `students.csv` files
 - And stores each student's history inside a `historicos` dic, where each individual has three files. Example:
-A person called Rafael will have a `(Rafael's ID)_exercises.csv`, `(Rafael's ID)_classes.csv` and `(Rafael's ID)_texts.csv`
+a student called Rafael will have a `(Rafael's ID)_exercises.csv`, `(Rafael's ID)_classes.csv` and `(Rafael's ID)_texts.csv`
 
 Through the console interface, I can:
 
@@ -63,3 +63,20 @@ No online database is required. After Drive syncing, everything runs locally.
 
 ## 📂 Project Structure (Simplified):
 
+data/
+students.csv
+texts.csv
+exercises.csv
+notes.csv
+classes.csv
+
+src/
+main.py
+students_functions.py
+classes_functions.py
+ui_functions.py
+utils.py
+
+## 👤 Author
+
+Developed by Rafael C. Nakayama
