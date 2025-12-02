@@ -3,6 +3,7 @@ import os
 import pandas as pd
 import utils
 
+from classes_functions import criar_lembrete_aluno
 from tabulate import tabulate
 
 caminho_csv = utils.writable_path("data", "students.csv")
@@ -35,6 +36,9 @@ def cadastrar_aluno(id_param,nome_param, status_param, aulas_param, pagamento_pa
                            'Nivel': f'{nivel_param}'})
         
     historico_existe = os.path.exists(historico_dir)
+
+    criar_lembrete_aluno(id_param)
+
     if historico_existe == False:
         os.makedirs(historico_dir, exist_ok=True)
 
@@ -90,7 +94,7 @@ def remover_aluno(aluno, id_aluno):
         df_remover_por_valor = df[df['Nome'] != f'{aluno}']
         df_remover_por_valor.to_csv(utils.writable_path("data", "students.csv"), index=False)
 
-        df_remover_lembrete = df_anotacoes[df_anotacoes['Nome'] != f'{aluno}']
+        df_remover_lembrete = df_anotacoes[df_anotacoes['ID'] != f'{id_aluno}']
         df_remover_lembrete.to_csv(utils.writable_path("data", "notes.csv"), index=False)
 
         os.remove(caminho_aulas_aluno_csv)

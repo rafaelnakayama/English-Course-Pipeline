@@ -52,6 +52,13 @@ def predefinir_notes():
     else:
         pass
 
+def criar_lembrete_aluno(id):
+    lembrete_default = "Vazio"
+
+    df_anotacoes = pd.read_csv(caminho_anotacoes)
+    df_anotacoes.loc[df_anotacoes['ID'] == id, 'Lembrete'] = lembrete_default
+    df_anotacoes.to_csv(caminho_anotacoes, index=False)
+
 def ler_anotacoes():
     with open(caminho_anotacoes, newline='') as arquivocsv:
         leitor_csv = csv.DictReader(arquivocsv)
