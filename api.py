@@ -16,7 +16,6 @@ caminho_cred = utils.writable_path("data", "credenciais.json")
 
 PASTA_CURSO_ID = "10n1IG9bxWjaR_V5bpw6p_1Y32SrhEdCY"
 
-
 def autenticar():
     credenciais = None
 

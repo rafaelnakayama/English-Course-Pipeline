@@ -130,7 +130,8 @@ def main_menu():
             print("\n\033[1;35mSaindo do programa...\033[1;35m")
             
             try:
-                api.atualizar_csv()
+                service = api.get_service()
+                api.atualizar_csvs(service)
             except Exception as e:
                 print(f"\n\033[1;31mNão foi possível atualizar os CSVs: {e}\033[0m")
 
