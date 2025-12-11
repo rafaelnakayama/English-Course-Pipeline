@@ -1,9 +1,10 @@
 import students_functions as sf
 import ui_functions as ui
 import classes_functions as cf
-import api
+import api as gcp
 
 def main_menu():
+    sf.criar_pasta_data()
     sf.verificar_csv()
     cf.verificar_anotacoes_csv()
     ui.menu_interface()
@@ -130,8 +131,8 @@ def main_menu():
             print("\n\033[1;35mSaindo do programa...\033[1;35m")
             
             try:
-                service = api.get_service()
-                api.atualizar_csvs(service)
+                service = gcp.get_service()
+                gcp.atualizar_csvs(service)
             except Exception as e:
                 print(f"\n\033[1;31mNão foi possível atualizar os CSVs: {e}\033[0m")
 

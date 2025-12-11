@@ -6,6 +6,7 @@ import utils
 from classes_functions import criar_lembrete_aluno
 from tabulate import tabulate
 
+caminho_data = utils.writable_path("data")
 caminho_csv = utils.writable_path("data", "students.csv")
 historico_dir = utils.writable_path("data", "historicos")
 caminho_anotacoes = utils.writable_path("data", "notes.csv")
@@ -13,6 +14,11 @@ caminho_anotacoes = utils.writable_path("data", "notes.csv")
 def criar_pasta_historico():
     historicos_dir = utils.writable_path("data", "historicos")
     os.makedirs(historicos_dir, exist_ok=True)
+
+def criar_pasta_data():
+    data_dir = utils.writable_path("data")
+    if os.path.exists(caminho_data) == False:
+        os.makedirs(data_dir, exist_ok=True)
 
 def cadastrar_aluno(id_param,nome_param, status_param, aulas_param, pagamento_param, nivel_param):
     arquivo_existe = os.path.exists(caminho_csv)
