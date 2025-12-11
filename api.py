@@ -1,8 +1,6 @@
 import os
 import pandas as pd
 import utils
-import threading
-import time
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -145,15 +143,3 @@ def atualizar_csvs(service):
     if novos_ids_exercicios:
         atividades_local = pd.concat([atividades_local, pd.DataFrame(novos_ids_exercicios)], ignore_index=True)
         atividades_local.to_csv(caminho_exercicios, index=False)
-
-def loop_atualizacao():
-    service = get_service()
-    while True:
-        try:
-            atualizar_csvs(service)
-        except Exception as e:
-            print("Erro ao atualizar CSVs:", e)
-        time.sleep(86400)  # 24h
-
-def iniciar_atualizador():
-    threading.Thread(target=loop_atualizacao, daemon=True).start()
