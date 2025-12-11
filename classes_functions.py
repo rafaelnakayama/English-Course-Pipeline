@@ -39,7 +39,7 @@ def criar_lembrete_aluno(id_cad, nome_cad):
 
         id_aluno = id_cad
         nome_aluno = nome_cad
-        lembrete_default = "VazioZINrs"
+        lembrete_default = "Vazio/None"
 
         escritor.writerow({'ID': id_aluno,
                            'Nome': nome_aluno,
