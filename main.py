@@ -4,7 +4,6 @@ import classes_functions as cf
 import api as gcp
 
 def main_menu():
-    sf.criar_pasta_data()
     sf.verificar_csv()
     cf.verificar_anotacoes_csv()
     ui.menu_interface()

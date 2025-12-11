@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import utils
+import sys
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -25,9 +26,12 @@ def autenticar():
             credenciais.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(caminho_cred, SCOPES)
-            credenciais = flow.run_local_server(port=0)
+            if getattr(sys, "frozen", False):
+                credenciais = flow.run_console()
+            else:
+                credenciais = flow.run_local_server(port=0)
 
-        with open(caminho_token, 'w') as token:
+        with open(caminho_token, "w") as token:
             token.write(credenciais.to_json())
 
     return credenciais
