@@ -9,6 +9,9 @@ def main_menu():
     ui.menu_interface()
     sf.criar_pasta_historico()
 
+    service = gcp.get_service()
+    gcp.criar_csvs(service)
+
     while (True):
         try:
             option = int(input("\n\033[32mSelecione uma das opcoes acima: \033[0m"))
@@ -135,7 +138,9 @@ def main_menu():
             except Exception as e:
                 print(f"\n\033[1;31mNão foi possível atualizar os CSVs: {e}\033[0m")
 
+        elif option == 7:
             break
+
         else:
             print(f"\033[1;31mA Opção '{option}' não exite.\033[1;35m")
     

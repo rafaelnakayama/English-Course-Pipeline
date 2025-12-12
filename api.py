@@ -45,11 +45,15 @@ def get_service():
     return build('drive', 'v3', credentials=credenciais)
 
 def criar_csvs(service):
-    results = service.files().list(
-        pageSize=12,
-        fields="files(id,name)",
-        q=f"'{PASTA_CURSO_ID}' in parents and trashed = false"
-    ).execute()
+    try:
+        results = service.files().list(
+            pageSize=50,
+            fields="files(id,name)",
+            q=f"'{PASTA_CURSO_ID}' in parents and trashed = false"
+        ).execute()
+    except Exception as e:
+        print(f"ERRO! Falha ao acessar o Drive: {e}")
+        results = {"files": []}
 
     items = results.get("files", [])
 
@@ -57,43 +61,64 @@ def criar_csvs(service):
     todos_textos = []
     todas_atividades = []
 
-    if items:
-        for item in items:
-            nome_loop = item["name"]
-            id_loop = item["id"]
+    for item in items:
+        nome_loop = item.get("name", "")
+        id_loop = item.get("id", "")
 
-            if nome_loop.endswith("(Aulas)"):
-                sub = service.files().list(
-                    fields="files(id,name)",
-                    q=f"'{id_loop}' in parents and trashed = false"
-                ).execute().get("files", [])
-                todas_aulas.extend(sub)
+        try:
+            sub = service.files().list(
+                fields="files(id,name)",
+                q=f"'{id_loop}' in parents and trashed = false"
+            ).execute().get("files", [])
+        except:
+            sub = []
 
-            elif nome_loop.endswith("(Textos)"):
-                sub = service.files().list(
-                    fields="files(id,name)",
-                    q=f"'{id_loop}' in parents and trashed = false"
-                ).execute().get("files", [])
-                todos_textos.extend(sub)
+        if nome_loop.endswith("(Aulas)"):
+            todas_aulas.extend(sub)
 
-            elif nome_loop.endswith("(Atividades)"):
-                sub = service.files().list(
-                    fields="files(id,name)",
-                    q=f"'{id_loop}' in parents and trashed = false"
-                ).execute().get("files", [])
-                todas_atividades.extend(sub)
+        elif nome_loop.endswith("(Textos)"):
+            todos_textos.extend(sub)
+
+        elif nome_loop.endswith("(Atividades)"):
+            todas_atividades.extend(sub)
 
     aulas_df = pd.DataFrame(todas_aulas)
-    aulas_df['numero'] = aulas_df['name'].str.extract(r'Class\s+(\d+(?:\.\d+)?)').astype(float)
-    aulas_df = aulas_df.sort_values(by="numero", ascending=True)
-    aulas_df.drop(columns=['numero'], inplace=True)
+
+    if not aulas_df.empty and "name" in aulas_df.columns:
+        try:
+            aulas_df['numero'] = (
+                aulas_df['name']
+                .str.extract(r'Class\s+(\d+(?:\.\d+)?)')
+                .astype(float)
+            )
+            aulas_df = aulas_df.sort_values(by="numero", ascending=True)
+            aulas_df.drop(columns=['numero'], inplace=True)
+        except:
+            pass
+
     aulas_df.to_csv(utils.writable_path("data", "aulas.csv"), index=False)
 
-    textos_df = pd.DataFrame(todos_textos).sort_values(by="name", ascending=True)
+    textos_df = pd.DataFrame(todos_textos)
+
+    if not textos_df.empty and "name" in textos_df.columns:
+        try:
+            textos_df = textos_df.sort_values(by="name")
+        except:
+            pass
+
     textos_df.to_csv(utils.writable_path("data", "textos.csv"), index=False)
 
-    atividades_df = pd.DataFrame(todas_atividades).sort_values(by="name", ascending=True)
+    atividades_df = pd.DataFrame(todas_atividades)
+
+    if not atividades_df.empty and "name" in atividades_df.columns:
+        try:
+            atividades_df = atividades_df.sort_values(by="name")
+        except:
+            pass
+
     atividades_df.to_csv(utils.writable_path("data", "exercicios.csv"), index=False)
+
+    print("\n Os CSVs foram criados/atualizados com sucesso\n")
 
 def atualizar_csvs(service):
     results = service.files().list(
