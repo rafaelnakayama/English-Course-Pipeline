@@ -1,6 +1,10 @@
 import os
 import sys
 
+def resource_path(*paths):
+    base = getattr(sys, "_MEIPASS", os.path.abspath("."))
+    return os.path.join(base, *paths)
+
 def writable_path(*paths):
     if getattr(sys, "frozen", False):
         base_path = os.path.dirname(sys.executable)

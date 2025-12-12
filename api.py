@@ -11,7 +11,7 @@ from googleapiclient.discovery import build
 SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
 
 caminho_token = utils.writable_path("data", "token.json")
-caminho_cred = utils.writable_path("data", "credenciais.json")
+caminho_cred = utils.resource_path("data", "credenciais.json")
 
 PASTA_CURSO_ID = "10n1IG9bxWjaR_V5bpw6p_1Y32SrhEdCY"
 
@@ -27,11 +27,15 @@ def autenticar():
         else:
             flow = InstalledAppFlow.from_client_secrets_file(caminho_cred, SCOPES)
             if getattr(sys, "frozen", False):
-                credenciais = flow.run_console()
+                try:
+                    credenciais = flow.run_local_server(port=0)
+                except Exception as e:
+                    print(f"Erro ao tentar autenticar via EXE: {e}")
+                    raise
             else:
                 credenciais = flow.run_local_server(port=0)
 
-        with open(caminho_token, "w") as token:
+        with open(caminho_token, 'w') as token:
             token.write(credenciais.to_json())
 
     return credenciais
