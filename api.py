@@ -156,11 +156,11 @@ def atualizar_csvs(service):
         ).execute().get("files", [])
 
         if nome.endswith("(Aulas)"):
-            novas_aulas = sub
+            novas_aulas.extend(sub)
         elif nome.endswith("(Textos)"):
-            novos_textos = sub
+            novos_textos.extend(sub)
         elif nome.endswith("(Atividades)"):
-            novas_atividades = sub
+            novas_atividades.extend(sub)
 
     caminho_aulas = utils.writable_path("data", "aulas.csv")
     caminho_textos = utils.writable_path("data", "textos.csv")
@@ -189,3 +189,9 @@ def atualizar_csvs(service):
     if novos_ids_exercicios:
         atividades_local = pd.concat([atividades_local, pd.DataFrame(novos_ids_exercicios)], ignore_index=True)
         atividades_local.to_csv(caminho_exercicios, index=False)
+
+    print("Verificando atualizações no Drive...")
+
+    print(f"Novas aulas: {len(novos_ids_aulas)}")
+    print(f"Novos textos: {len(novos_ids_textos)}")
+    print(f"Novas atividades: {len(novos_ids_exercicios)}")
