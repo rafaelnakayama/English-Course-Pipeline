@@ -2,11 +2,9 @@
 
 ## 📌 Overview
 
-After almost two years giving English classes, I realized I needed a system to help me organize and track of my student progress. Each student learns different things at different times, and I needed a structured way to store what each student had already done in my course.
+After almost two years of giving English classes, I realized that something like a system to help me organize and track my students' progress would be very helpful. Each student learns different things at different times, and I needed a structured way to store what each student had already covered.
 
-This program was developed entirely for my **personal use**, tailored to my workflow and the structure of my own English course (That was uploaded on Google Drive). For that reason, it is **not intended as a universal tool**, since every teacher works differently. The system solves my needs specifically.
-
----
+This program was developed entirely for my **personal use**, tailored to my workflow and the structure of my own English course (which was uploaded to Google Drive). For that reason, it is **not intended as a universal tool**, since every teacher works differently. The system is designed to meet my own needs.
 
 ## ❓ How the System Works
 
@@ -46,8 +44,6 @@ Through the console interface, I can:
 
 All data manipulation is local, no need to reopen Google Drive after initial sync.
 
----
-
 ## 🛠️ Technologies Used
 
 The project was written in **Python** and uses:
@@ -65,8 +61,6 @@ The **PyInstaller** command to create the .exe:
 - pyinstaller main.py --name "Students Log" --onefile --console --icon "StudentsLog.ico" --add-data "data;data"
 
 No online database is required. After Drive syncing, everything runs locally.
-
----
 
 ## 📂 Project Structure (Simplified):
 
