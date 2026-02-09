@@ -202,3 +202,5 @@ def atualizar_csvs(service):
     print(f"Novos textos: {n_textos}")
     
     print(f"Novas atividades: {n_ativ}")
+
+    print("\n")

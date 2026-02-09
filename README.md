@@ -42,7 +42,7 @@ Through the console interface, I can:
 - Assign or remove lessons from a student  
 - Store personal reminders/notes for each student  
 - Review everything using formatted terminal tables
-- Stay up to date with my English Course data from Google Drive
+- Stay up to date with my English Course data from Google Drive.
 
 All data manipulation is local, no need to reopen Google Drive after initial sync.
 
