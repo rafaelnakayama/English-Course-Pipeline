@@ -198,5 +198,7 @@ def atualizar_csvs(service):
     n_ativ = atualizar_csv(caminhos["atividades"], novas_atividades)
 
     print(f"Novas aulas: {n_aulas}")
+
     print(f"Novos textos: {n_textos}")
+    
     print(f"Novas atividades: {n_ativ}")
